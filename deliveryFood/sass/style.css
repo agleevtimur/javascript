@@ -20,13 +20,17 @@
 .container {
   max-width: 1200px;
   margin: auto;
+  margin-top: 44px;
 }
 
 .header {
-  margin-top: 44px;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.logo {
+  margin-right: 24px;
 }
 
 .search-input {
@@ -56,10 +60,34 @@
   margin-left: 4px;
 }
 
+.buttons {
+  margin-left: 24px;
+}
+
 .button-primary {
   margin-right: 10px;
   background: #1890FF;
   border: 1px solid #1890FF;
   color: #fff;
+}
+
+@media (max-width: 1440px) {
+  .container {
+    margin-left: 7%;
+    margin-right: 7%;
+  }
+}
+
+@media (max-width: 960px) {
+  .header {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .search-input, .buttons {
+    margin-top: 16px;
+  }
 }
 /*# sourceMappingURL=style.css.map */

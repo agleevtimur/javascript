@@ -19,12 +19,17 @@ $primary-text-color:  #1890FF;
 .container {
   max-width: 1200px;
   margin: auto;
+  margin-top: 44px;
 }
 
 .header {
-  margin-top: 44px;
+ 
   @extend %items-position-shared;
   justify-content: space-between;
+}
+
+.logo {
+  margin-right: 24px;
 }
 
 .search-input {
@@ -55,11 +60,28 @@ $primary-text-color:  #1890FF;
   }
   &s {
     @extend %items-position-shared;
+    margin-left: 24px;
   }
   &-primary {
     margin-right: 10px;
     background: $primary-text-color;
     border: 1px solid $primary-text-color;
     color: #fff;
+  }
+}
+
+@media(max-width: 1440px){
+  .container {
+    margin-left: 7%;
+    margin-right: 7%;
+  }
+}
+@media(max-width: 960px){
+  .header {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .search-input, .buttons {
+    margin-top: 16px;
   }
 }
