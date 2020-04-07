@@ -1,0 +1,65 @@
+.search-input, .button-text {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.header, .button, .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.header {
+  margin-top: 44px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.search-input {
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  border-radius: 2px;
+  width: 690px;
+  height: 40px;
+  background-image: url(../img/home.svg);
+  background-repeat: no-repeat;
+  background-position: left 11px center;
+  padding-left: 35px;
+}
+
+.button {
+  padding: 8px 16px;
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  color: #595959;
+  /* ghost button shadow */
+  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.0015);
+          box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.0015);
+  border-radius: 2px;
+}
+
+.button-text {
+  margin-left: 4px;
+}
+
+.button-primary {
+  margin-right: 10px;
+  background: #1890FF;
+  border: 1px solid #1890FF;
+  color: #fff;
+}
+/*# sourceMappingURL=style.css.map */
