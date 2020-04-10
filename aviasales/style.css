@@ -227,6 +227,11 @@ input {
 .block__ticket{
     margin: 50px 0;
 }
+.footer {
+  position: fixed;
+  left: 0;
+  top: 0;
+}
 @media(max-width: 768px){
     .ticket__wrapper{
         -ms-flex-wrap: wrap;
