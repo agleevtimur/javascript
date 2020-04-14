@@ -1,3 +1,11 @@
+.slider__nav--left, .slider__nav--right {
+  width: 32px;
+  height: 32px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 @font-face {
   font-family: 'ProximaNova-Black';
   src: local("ProximaNova-Black") url("https://nomail.com.ua/files/eot/aa46d234cf405126cdd1c36600e4b978.eot?#iefix") format("embedded-opentype"), url("https://nomail.com.ua/files/woff/aa46d234cf405126cdd1c36600e4b978.woff") format("woff"), url("https://nomail.com.ua/files/woff2/aa46d234cf405126cdd1c36600e4b978.woff2") format("woff2");
@@ -214,9 +222,60 @@ body {
   font-size: 13px;
   line-height: 150%;
   font-weight: normal;
+  margin-right: 12px;
 }
 
 .star {
-  background: url(../img/star.svg);
+  display: inline-block;
+  width: 12px;
+  height: 10px;
+  background: url(../img/star.svg) center no-repeat;
+}
+
+.star-o {
+  background: url(../img/star-open-1.svg) center no-repeat;
+}
+
+.slider__nav--left {
+  margin-right: 15px;
+  background: transparent url(../img/hand.svg) center no-repeat;
+}
+
+.slider__nav--right {
+  background: transparent url(../img/hand-right.svg) center no-repeat;
+}
+
+.slider__nav--left span, .slider__nav--right span {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .hero__title {
+    font-size: 36px;
+  }
+  .hero__subtitle {
+    font-size: 24px;
+  }
+  .hero__description {
+    font-size: 16px;
+  }
+  .header, .nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: start;
+  }
+  .header__logo {
+    margin-bottom: 30px;
+  }
+  .nav__link {
+    margin-bottom: 10px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
