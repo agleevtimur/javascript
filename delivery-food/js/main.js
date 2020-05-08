@@ -17,8 +17,12 @@ const cartButton = document.querySelector("#cart-button"),
  logo = document.querySelector('.logo'),
  cardsMenu = document.querySelector('.cards-menu'),
  menuHeading = document.querySelector('.menu-heading'),
- inputSearch = document.querySelector('.input-search');
+ inputSearch = document.querySelector('.input-search'),
+ modalBody = document.querySelector('.modal-body'),
+ modalPrice = document.querySelector('.modal-pricetag'),
+ clearCart = document.querySelector('.clear-cart');
 
+const cart = localStorage.getItem('cart') === null ? [] : JSON.parse(localStorage.getItem('cart'));
 let login = localStorage.getItem('login');
 
 const valid = (str) => {
@@ -36,6 +40,7 @@ const getData = async (url) => {
 
 function toggleModal() {
   modal.classList.toggle("is-open");
+  renderCart();
 }
 
 function toggleModalAuth(){
@@ -50,13 +55,15 @@ function authorized(){
     buttonAuth.style.display = '';
     buttonOut.style.display = '';
     userName.style.display = '';
+    cartButton.style.display = '';
     checkAuth();
     buttonOut.removeEventListener('click', logOut);
   }
   userName.textContent = login;
   buttonAuth.style.display = 'none';
-  buttonOut.style.display = 'block';
+  buttonOut.style.display = 'flex';
   userName.style.display = 'inline';
+  cartButton.style.display = 'flex';
   buttonOut.addEventListener('click', logOut);
   
 }
@@ -93,7 +100,8 @@ function checkAuth(){
 function createCardRestaurant(restaurant){
     const {image, kitchen, name, price, stars, products, time_of_delivery: timeOfDelivery} = restaurant;
     const card = document.createElement('a');
-    card.className = 'card card-restaurant';
+    card.className = 'card card-restaurant wow bounceInUp';
+    card.setAttribute('data-wow-duration', '2s');
     card.products = products;
     card.info = [name, stars, price, kitchen];
     
@@ -121,13 +129,12 @@ function openGoods(event){
     const restaurant = target.closest('.card-restaurant');
     if (restaurant){
       cardsMenu.textContent = '';
+      menuHeading.textContent = '';
       menu.classList.remove('hide');
       containerPromo.classList.add('hide');
       restaurants.classList.add('hide');
       createTitleForGoods(restaurant.info);
-      getData(`../db/${restaurant.products}`).then((data) => {
-        data.forEach(createCardGood);
-      });
+      getData(`../db/${restaurant.products}`).then((data) => data.forEach(createCardGood));
     } 
   }
   else toggleModalAuth();
@@ -136,31 +143,31 @@ function openGoods(event){
 function createCardGood(product){
     const {description, id, image, name, price} = product;
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'card wow bounceInUp';
+    card.id = id;
+    card.setAttribute('data-wow-duration', '2s');
     card.insertAdjacentHTML('beforeend', `
         <img src="${image}" alt="image" class="card-image"/>
         <div class="card-text">
           <div class="card-heading">
             <h3 class="card-title card-title-reg">${name}</h3>
           </div>
-          <!-- /.card-heading -->
           <div class="card-info">
             <div class="ingredients">${description}
             </div>
           </div>
-          <!-- /.card-info -->
           <div class="card-buttons">
             <button class="button button-primary button-add-cart">
               <span class="button-card-text">В корзину</span>
               <span class="button-cart-svg"></span>
             </button>
-            <strong class="card-price-bold">${price} ₽</strong>
+            <strong class="card-price card-price-bold">${price} ₽</strong>
           </div>
         </div>`);
     cardsMenu.insertAdjacentElement('beforeend', card);
 }
 
-function createTitleForGoods([name, stars, kitchen, price]){
+function createTitleForGoods([name, stars, price, kitchen]){
   
   const title = `
     <h2 class="section-title restaurant-title">${name}</h2>
@@ -175,11 +182,15 @@ function createTitleForGoods([name, stars, kitchen, price]){
 }
 
 function search(event){
+  
   if (event.keyCode === 13) {
     const target = event.target;
     const value = target.value.toLowerCase().trim();
     target.value = '';
-
+    if (!login) { 
+      toggleModalAuth();
+      return;
+    }
     if (!value || value.length < 2) {
       target.style.borderColor = 'red';
       setTimeout(() => target.style.borderColor = '', 2000);
@@ -191,20 +202,61 @@ function search(event){
     restaurants.classList.add('hide');
     menuHeading.textContent = '';
     menuHeading.insertAdjacentHTML('beforeend', '<h2 class="section-title restaurant-title">Результаты поиска</h2>');
-    const goods = [];
     getData("../db/partners.json")
       .then((data) => {
         const products = data.map((item)=>item.products);
         products.forEach((product) =>
           getData(`../db/${product}`)
-          .then((data)=> {
-            goods.push(...data);
-            const searchGoods = goods.filter((item) => item.name.toLowerCase().includes(value));
-            return searchGoods;
-          })
+          .then((data) => data.filter((item) => item.name.toLowerCase().includes(value)))
           .then((data) => data.forEach(createCardGood))
         );
       })
+  }
+}
+
+function addToCart(event){
+  const target = event.target;
+  const button = target.closest('.button-add-cart');
+  if (button){
+    const card = target.closest('.card');
+    const title = card.querySelector('.card-title-reg').textContent;
+    const price = card.querySelector('.card-price').textContent;
+    const id = card.id;
+    const good = cart.find((item) => item.id == id);
+    if (good) good.count += 1;
+    else cart.push({id, title, price, count:1});
+  }
+}
+
+function renderCart() {
+  modalBody.textContent = '';
+  cart.forEach(({price, title, count, id}) => {
+    const itemCart = `
+      <div class="food-row">
+      <span class="food-name">${title}</span>
+      <strong class="food-price">${price}</strong>
+      <div class="food-counter">
+        <button class="counter-button counter-minus" data-id=${id}>-</button>
+        <span class="counter">${count}</span>
+        <button class="counter-button counter-plus" data-id=${id}>+</button>
+      </div>
+      </div>`;
+    modalBody.insertAdjacentHTML('beforeend', itemCart);
+  });
+  const overall = cart.reduce((sum, current) => sum + (parseFloat(current.price) * current.count), 0);
+  modalPrice.textContent = overall + ' ₽';
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+function countChange(event) {
+  const target = event.target;
+  if (target.classList.contains('counter-button')) {
+    const good = cart.find((item) => item.id === target.dataset.id);
+    if (target.classList.contains('counter-minus')) {
+      good.count--;
+      if (good.count === 0) cart.splice(cart.indexOf(good), 1);
+    }
+    if (target.classList.contains('counter-plus')) good.count++;
+    renderCart();
   }
 }
 
@@ -220,7 +272,12 @@ function init(){
     restaurants.classList.remove('hide');
   });
   inputSearch.addEventListener('keydown', search);
-
+  cardsMenu.addEventListener('click', addToCart);
+  modalBody.addEventListener('click', countChange);
+  clearCart.addEventListener('click', () => {
+    cart.length = 0;
+    renderCart();
+  });
   checkAuth();
   new Swiper ('.swiper-container',{
     loop:true,
@@ -229,5 +286,6 @@ function init(){
       disableOnInteraction: false,
     },
   });
+  new WOW().init();
 }
 init();
