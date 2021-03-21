@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+font-family = 'Source Sans Pro', san-serif;
+screen-medium-1 = 1284px;
+screen-medium-2 = 978px;
+screen-small = 576px;
+
+font-conf(size, height = 140%)
+  font-size: size
+  line-height height
+
+body
+  background-color: #010202
+  color: #FFFFFF
+  box-sizing: border-box
+  font-family: font-family
+
+header
+  display: flex
+  justify-content: space-between
+  padding-top: 56px
+
+main
+  margin-top: 200px
+
+a
+  text-decoration: none
+
+#app
+  position: relative
+  background: linear-gradient(90deg, #010202 43%, rgba(1, 2, 2, 0.2) 44.9%)
+  min-height: 100vh
+  overflow: hidden
+
+.container
+  max-width: 1250px
+  margin-left: auto
+  margin-right auto
+  width: 90%
+
+.user
+  &__avatar
+    width: 40px
+    height: 40px
+    border-radius: 50%
+  &__name
+    color: #FFFFFF
+    margin-right: 15px
+    font-conf 16px 20px
+  display flex
+  align-items center
+
+.tag-group
+  margin-top: 18px
+
+.tag
+  color: #E5E5E5
+  opacity: 0.4
+  font-conf(16px)
+  &:not(:last-child)
+    margin-right: 15px
+  &:last-child
+    padding: 1px 5px;
+    border: 1px solid #FFFFFF
+    border-radius: 2px
+
+
+.description
+  margin-top: 9px
+  max-width: 460px
+  color: #FFFFFF
+  font-conf(21px)
+
+.button-group
+  margin-top: 36px
+
+.button
+  font-conf(16px)
+  border: none
+  color: #FFFFFF
+  background-color: #EA6E20
+  border-radius: 6px
+  padding: 10px 25px 12px
+  cursor: pointer
+  &:not(:last-child)
+    margin-right: 15px
+  &-primary
+    background-color: #2F2F2F
+  &__image
+    margin-right: 10px
+    vertical-align middle
+
+.video-bg
+  position: absolute
+  z-index: -1
+  inset: 0
+  width: 100%
+
+@media (max-width: screen-medium-1)
+  .video-bg
+    display: none
+
+  #app
+    background: url("../img/cover-image.svg") no-repeat 100% 0
+    background-size: contain;
+
+@media (max-width: screen-medium-2)
+  #app
+    padding-bottom: 700px
+    background: url("../img/cover-image.svg") no-repeat bottom center / 300px
+    background-size: contain;
+
+  main
+    margin-top: 115px
+    text-align center
+
+  .tag
+    font-conf(18px)
+
+  .description
+    font-conf(23px)
+    margin-left: auto
+    margin-right: auto
+
+  .button
+    font-conf(20px)
+
+  .user__name
+    font-conf(20px)
+
+@media (max-width: screen-small)
+  .user__name
+    display none
+
+  .button__text
+    display none
+

@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+body {
+  background-color: #010202;
+  color: #fff;
+  box-sizing: border-box;
+  font-family: 'Source Sans Pro', san-serif;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 56px;
+}
+main {
+  margin-top: 200px;
+}
+a {
+  text-decoration: none;
+}
+#app {
+  position: relative;
+  background: linear-gradient(90deg, #010202 43%, rgba(1,2,2,0.2) 44.9%);
+  min-height: 100vh;
+  overflow: hidden;
+}
+.container {
+  max-width: 1250px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+.user {
+  display: flex;
+  align-items: center;
+}
+.user__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.user__name {
+  color: #fff;
+  margin-right: 15px;
+  font-size: 16px;
+  line-height: 20px;
+}
+.tag-group {
+  margin-top: 18px;
+}
+.tag {
+  color: #e5e5e5;
+  opacity: 0.4;
+  font-size: 16px;
+  line-height: 140%;
+}
+.tag:not(:last-child) {
+  margin-right: 15px;
+}
+.tag:last-child {
+  padding: 1px 5px;
+  border: 1px solid #fff;
+  border-radius: 2px;
+}
+.description {
+  margin-top: 9px;
+  max-width: 460px;
+  color: #fff;
+  font-size: 21px;
+  line-height: 140%;
+}
+.button-group {
+  margin-top: 36px;
+}
+.button {
+  font-size: 16px;
+  line-height: 140%;
+  border: none;
+  color: #fff;
+  background-color: #ea6e20;
+  border-radius: 6px;
+  padding: 10px 25px 12px;
+  cursor: pointer;
+}
+.button:not(:last-child) {
+  margin-right: 15px;
+}
+.button-primary {
+  background-color: #2f2f2f;
+}
+.button__image {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.video-bg {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+}
+@media (max-width: 1284px) {
+  .video-bg {
+    display: none;
+  }
+  #app {
+    background: url("../img/cover-image.svg") no-repeat 100% 0;
+    background-size: contain;
+  }
+}
+@media (max-width: 978px) {
+  #app {
+    padding-bottom: 700px;
+    background: url("../img/cover-image.svg") no-repeat bottom center/300px;
+    background-size: contain;
+  }
+  main {
+    margin-top: 115px;
+    text-align: center;
+  }
+  .tag {
+    font-size: 18px;
+    line-height: 140%;
+  }
+  .description {
+    font-size: 23px;
+    line-height: 140%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .button {
+    font-size: 20px;
+    line-height: 140%;
+  }
+  .user__name {
+    font-size: 20px;
+    line-height: 140%;
+  }
+}
+@media (max-width: 576px) {
+  .user__name {
+    display: none;
+  }
+  .button__text {
+    display: none;
+  }
+}

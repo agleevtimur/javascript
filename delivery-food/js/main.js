@@ -134,7 +134,7 @@ function openGoods(event){
       containerPromo.classList.add('hide');
       restaurants.classList.add('hide');
       createTitleForGoods(restaurant.info);
-      getData(`../db/${restaurant.products}`).then((data) => data.forEach(createCardGood));
+      getData(`db/${restaurant.products}`).then((data) => data.forEach(createCardGood));
     } 
   }
   else toggleModalAuth();
@@ -202,11 +202,11 @@ function search(event){
     restaurants.classList.add('hide');
     menuHeading.textContent = '';
     menuHeading.insertAdjacentHTML('beforeend', '<h2 class="section-title restaurant-title">Результаты поиска</h2>');
-    getData("../db/partners.json")
+    getData("db/partners.json")
       .then((data) => {
         const products = data.map((item)=>item.products);
         products.forEach((product) =>
-          getData(`../db/${product}`)
+          getData(`db/${product}`)
           .then((data) => data.filter((item) => item.name.toLowerCase().includes(value)))
           .then((data) => data.forEach(createCardGood))
         );
@@ -261,7 +261,7 @@ function countChange(event) {
 }
 
 function init(){
-  getData("../db/partners.json").then((data) => data.forEach(createCardRestaurant));
+  getData("db/partners.json").then((data) => data.forEach(createCardRestaurant));
 
   cartButton.addEventListener("click", toggleModal);
   close.addEventListener("click", toggleModal);
